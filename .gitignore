@@ -1,0 +1,27 @@
+# Local data
+myphoto.db
+photos/
+thumbs_cache/
+
+# Local planning
+ROADMAP.md
+
+# Models (downloaded by scripts/download_models.py)
+models/*.onnx
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Build output
+build/
+dist/
+
+# Local tooling
+.claude/
+
+# make start artifacts
+.myphotos.pid
+myphotos.log
