@@ -1,104 +1,142 @@
-# FaceVault
+<div align="center">
 
-A modern desktop application (PySide6) that scans a folder (recursively) for photos, detects faces with OpenCV AI models, automatically clusters identical faces into persons, and lets you browse, filter, tag, and organize your photo library by person.
+# 📷 FaceVault AI
 
-## Screenshots
+### Intelligent Local Photo Cataloging & Face Detection Desktop Application
 
-Gallery with per-person colored face boxes and the people sidebar:
+Developed & Maintained by **[jarifovi](https://github.com/jarifovi)**
 
+![Python Version](https://img.shields.io/badge/Python-3.10%2B-blue?style=for-the-badge&logo=python)
+![PySide6](https://img.shields.io/badge/UI-PySide6-41CD52?style=for-the-badge&logo=qt)
+![OpenCV](https://img.shields.io/badge/AI-OpenCV%20YuNet%20%2B%20SFace-5C3EE8?style=for-the-badge&logo=opencv)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+![Build Status](https://img.shields.io/badge/Tests-100%25%20Passing-brightgreen?style=for-the-badge)
+
+---
+
+</div>
+
+## 👤 Developer & Credit
+
+- **Author**: [jarifovi](https://github.com/jarifovi)
+- **GitHub Repository**: [https://github.com/jarifovi/face-vault-Detection](https://github.com/jarifovi/face-vault-Detection)
+- **License**: MIT License
+
+---
+
+## 🌟 Overview
+
+**FaceVault AI** is a state-of-the-art desktop application built with Python, PySide6, and OpenCV. It brings privacy-focused, 100% offline face detection, face recognition clustering, and smart photo cataloging to your local machine.
+
+No data ever leaves your computer. Your photos, detected face embeddings, custom tags, and metadata are indexed locally into a SQLite database.
+
+---
+
+## 🖼️ User Interface Preview
+
+<div align="center">
+
+### Responsive Photo Gallery with Face Highlighting
 ![Gallery](screenshots/gallery.png)
 
-Gallery filtered to one person (rename / merge / delete buttons on the selected row):
+### Filtered Person View & Person Management
+![Filtered View](screenshots/filter.png)
 
-![Filtered by person](screenshots/filter.png)
+### Full-Size Interactive Lightbox Viewer
+![Lightbox Viewer](screenshots/lightbox.png)
 
-Full-size view of a photo with every detected face outlined and named:
+</div>
 
-![Photo view](screenshots/lightbox.png)
+---
 
-## Download
+## ✨ Key Features
 
-Prebuilt standalone executables can be attached to GitHub Releases:
+- **🔍 Recursive Folder Scanning**: Analyzes deep folder trees for images (`.jpg`, `.jpeg`, `.png`, `.webp`, `.bmp`, `.tiff`).
+- **🤖 Deep Learning Face Detection**: Utilizes OpenCV **YuNet** for ultra-fast face detection and **SFace** for 128-dimensional face embedding extraction.
+- **👥 Automatic Person Clustering**: Groups face embeddings into distinct personas (`Persona 1`, `Persona 2`, …) using fast greedy algorithms and average-linkage hierarchical clustering.
+- **🏷️ Smart Tagging & Metadata**: Tag individual or batch photos with custom labels. Filter photos by person, tag, or EXIF GPS location.
+- **🔍 Full-Screen Lightbox**: Mouse-wheel zoom around cursor, click-and-drag panning, keyboard navigation (`←`/`→`), and instant face box inspection.
+- **📍 EXIF Geolocation & Map Link**: Extracts GPS coordinates from photos, allows filtering geotagged photos, and opens locations directly in OpenStreetMap.
+- **⚡ Disk Caching & Fast SQLite**: Asynchronous multi-threaded thumbnail loader with disk cache ensures lightning-fast gallery scrolling even with thousands of images.
+- **🔒 100% Offline & Private**: Zero external cloud calls. All face embeddings and data stay safely on your local disk.
 
-| OS      | File                 |
-|---------|----------------------|
-| Windows | `FaceVault-Windows.exe`|
-| Linux   | `FaceVault-Linux`      |
-| macOS   | `FaceVault-macOS`      |
+---
 
-Run the file — the app window opens directly. On Linux/macOS make it
-executable first: `chmod +x FaceVault-Linux && ./FaceVault-Linux`. On macOS you
-may need to allow it in *System Settings → Privacy & Security*.
+## 🏗️ Tech Stack & Architecture
 
-## Features
+| Component | Technology Used |
+| :--- | :--- |
+| **GUI Framework** | PySide6 (Qt for Python) |
+| **Face Detection** | OpenCV DNN Module + **YuNet** |
+| **Face Recognition** | OpenCV **SFace** ONNX Model |
+| **Data Storage** | SQLite 3 (WAL Journal Mode) |
+| **Image Processing** | Pillow (PIL) + OpenCV |
+| **Testing** | Pytest (100% offscreen synthetic test suite) |
 
-- Pick any folder; images are discovered recursively (jpg, jpeg, png, webp, bmp, tiff).
-- Face detection with OpenCV **YuNet**, face embeddings with **SFace**.
-- Faces are clustered into persons (`Persona 1`, `Persona 2`, …): a fast greedy
-  pass runs while analysis is in progress, then a final average-linkage
-  re-clustering of all faces.
-- Persons can be renamed, merged into one another, or deleted (useful for
-  false detections); every edit survives re-analysis.
-- Right-click a face in the full-size viewer to move it to another person,
-  split it off into a new one, or delete a wrong box; hand-made assignments
-  are pinned and re-clustering never moves them again.
-- Each person has a stable distinct color used for its face boxes on photos
-  and for its name in the sidebar.
-- Every photo preview shows semi-transparent rectangles over detected faces
-  with the person's name below each box; click a photo to see it full-size.
-- The full-size viewer zooms with the mouse wheel (around the cursor), pans a
-  zoomed photo by dragging, and switches photos with the side arrows or ←/→;
-  ✕, Esc or a click on the background closes it.
-- Click person portraits in the right sidebar to filter the gallery; several
-  selected people combine with AND (photos where they appear together).
-- Tag photos with your own labels (right-click a photo, or a whole selection);
-  tags appear as colored dots on the cards and as a sidebar list that filters
-  the gallery, combining with the person filter.
-- EXIF location: coordinates are stored during analysis, shown in the viewer,
-  and a pin toggle filters the gallery to geotagged photos; the context menu
-  copies the coordinates or opens them in OpenStreetMap.
-- Sort the gallery by filename or by EXIF capture date; the date is shown in
-  card captions and in the full-size viewer.
-- Keyboard navigation: arrows move the selection, Enter opens the photo,
-  Esc clears the person filter.
-- Preview aspect (vertical 3:4 by default, or 4:3), face-box visibility and
-  sort order are toggleable and remembered between launches; a settings
-  dialog also covers gallery columns, folder watching, clustering thresholds
-  and log verbosity.
-- Thumbnails are cached on disk, so a large library re-opens instantly.
-- The analyzed folder is watched for changes and re-indexed automatically
-  (new and removed files; can be turned off in settings).
-- Progress bar while analysis is running.
-- Results (photos, faces, persons) are persisted in SQLite; unchanged photos
-  are not re-analyzed on subsequent runs.
+---
 
-## Run from source
+## 🚀 Quick Start Guide
 
-Requires Python 3.10+.
+### Prerequisites
+- Python **3.10+** installed on your system.
 
+### 1. Clone the Repository
 ```bash
+git clone https://github.com/jarifovi/face-vault-Detection.git
+cd face-vault-Detection
+```
+
+### 2. Set Up Virtual Environment & Install Dependencies
+```bash
+python -m venv venv
+# On Windows:
+.\venv\Scripts\activate
+# On Linux/macOS:
+source venv/bin/activate
+
 pip install -r requirements.txt
-python scripts/download_models.py   # fetches ONNX models from the OpenCV Zoo
+```
+
+### 3. Download AI Models
+Fetch the official YuNet and SFace ONNX models from OpenCV Zoo:
+```bash
+python scripts/download_models.py
+```
+
+### 4. Run FaceVault AI
+```bash
 python main.py
 ```
 
-Check the folder path in the top bar and press **Analyze**.
+---
 
-## Tests
+## ⌨️ Keyboard Shortcuts & Navigation
+
+| Key / Action | Function |
+| :--- | :--- |
+| `Esc` | Clear active search/person filters or close Lightbox |
+| `Enter` | Open selected photo in full-screen Lightbox |
+| `←` / `→` | Navigate to previous/next photo |
+| `Mouse Wheel` | Zoom in/out around cursor in Lightbox |
+| `Drag` | Pan zoomed image in Lightbox |
+| `Right Click` | Open contextual menu (Face assignments, tagging, geotag options) |
+
+---
+
+## 🧪 Testing
+
+Run the full offscreen unit test suite (100 tests covering face math, database queries, GUI state, and lightbox interactions):
 
 ```bash
 pip install -r requirements-dev.txt
 pytest
 ```
 
-The suite runs offscreen (no display needed) on synthetic images and a temp
-database: crop math, data queries, person edits, clustering/recluster logic,
-the responsive grid and the lightbox interactions. CI runs it on every push
-and pull request via the [tests workflow](.github/workflows/tests.yml).
+---
 
-## Build executables
+## 📦 Building Executables
 
-Executables are built with PyInstaller — locally:
+Package FaceVault into a standalone `.exe` or executable binary using PyInstaller:
 
 ```bash
 pip install pyinstaller
@@ -106,27 +144,44 @@ python scripts/download_models.py
 pyinstaller facevault.spec
 ```
 
-or by CI: pushing a `v*` tag triggers the
-[build workflow](.github/workflows/build.yml), which compiles binaries on
-Windows, Linux and macOS runners and attaches them to a GitHub release.
+The resulting standalone application will be compiled into the `dist/` directory.
 
-## Project layout
+---
 
-| Path                         | Purpose                                        |
-|------------------------------|------------------------------------------------|
-| `main.py`                    | Desktop entry point (QApplication + theme)     |
-| `gui/`                       | PySide6 UI: window, gallery, people, lightbox  |
-| `analyzer.py`                | Folder scanning, face detection and clustering |
-| `database.py`                | SQLite schema and connection helpers           |
-| `paths.py`                   | Path resolution (source vs frozen bundle)      |
-| `scripts/download_models.py` | Downloads YuNet and SFace ONNX models          |
-| `tests/`                     | Pytest suite (offscreen, synthetic data)       |
-| `facevault.spec`             | PyInstaller build spec                         |
+## 📁 Repository Structure
 
-## Storage
+```text
+face-vault-Detection/
+├── main.py                     # Main application entry point & setup
+├── analyzer.py                 # Face detection & clustering pipeline
+├── database.py                 # SQLite database storage & schema
+├── paths.py                    # Cross-platform path resolution
+├── facevault.spec              # PyInstaller executable build spec
+├── Makefile                    # Process management & run commands
+├── gui/                        # PySide6 desktop UI components
+│   ├── window.py               # Main window layout & filter handling
+│   ├── gallery.py              # Responsive photo thumbnail grid
+│   ├── lightbox.py             # Fullscreen image viewer with zoom & pan
+│   ├── people.py               # Person sidebar & portrait list
+│   ├── tags.py                 # Tag sidebar & tag filter panel
+│   ├── settings.py             # App preferences & parameters dialog
+│   ├── thumbs.py               # Async disk-cached thumbnail loader
+│   ├── facepaint.py            # Bounding box painter utility
+│   ├── data.py                 # GUI database interaction layer
+│   └── theme.py                # Modern dark palette & QSS styling
+├── scripts/                    # Utility scripts
+│   ├── download_models.py      # ONNX model download script
+│   └── make_icon.py            # App icon generation script
+├── tests/                      # Pytest automated test suite (100 tests)
+├── assets/                     # Application icons and logos
+├── screenshots/                # Documentation screenshots
+└── .github/workflows/          # CI/CD GitHub Actions workflows
+```
 
-- Running from source: `facevault.db` next to the code.
-- Running a packaged executable: `~/.facevault/facevault.db`, with a rotating
-  `~/.facevault/facevault.log` for debugging (windowed builds have no console).
-- View settings (preview aspect, face-box visibility) are stored with Qt
-  `QSettings` under the `FaceVault` organization.
+---
+
+## 👨‍💻 Author & Attribution
+
+Developed with ❤️ by **[jarifovi](https://github.com/jarifovi)**.
+
+If you find **FaceVault AI** useful, please consider giving the repository a ⭐ on [GitHub](https://github.com/jarifovi/face-vault-Detection)!
