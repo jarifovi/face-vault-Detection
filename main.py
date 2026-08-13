@@ -13,6 +13,8 @@ from gui.window import MainWindow
 from paths import data_dir, is_frozen
 
 __version__ = "1.0.4"
+__author__ = "jarifovi"
+__repository__ = "https://github.com/jarifovi/face-vault-Detection"
 
 log = logging.getLogger(__name__)
 
