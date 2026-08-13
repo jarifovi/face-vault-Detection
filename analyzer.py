@@ -1,4 +1,4 @@
-"""Recursive photo scanning, face detection (YuNet) and face clustering (SFace)."""
+"""Recursive photo scanning, face detection (YuNet) and face clustering (SFace) for FaceVault AI. Developed by jarifovi (https://github.com/jarifovi)."""
 
 import logging
 import os
