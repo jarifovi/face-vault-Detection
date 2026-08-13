@@ -1,4 +1,4 @@
-"""SQLite storage layer for photos, faces and persons."""
+"""SQLite storage layer for photos, faces and persons in FaceVault AI. Developed by jarifovi (https://github.com/jarifovi)."""
 
 import os
 import sqlite3
