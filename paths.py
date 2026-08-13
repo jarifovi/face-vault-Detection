@@ -1,4 +1,4 @@
-"""Path resolution that works both from source and from a PyInstaller bundle."""
+"""Path resolution that works both from source and from a PyInstaller bundle in FaceVault AI. Developed by jarifovi (https://github.com/jarifovi)."""
 
 import os
 import sys
